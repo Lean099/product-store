@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
 
 app.use(multer({
     storage: storage
-}).single('image'))
+}).single('file'))
 
 app.use('/api/user', require('./routes/user'))
 app.use('/api/product', require('./routes/product'))

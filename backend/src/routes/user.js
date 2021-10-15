@@ -1,13 +1,14 @@
 const { Router } = require('express')
 const router = Router()
 
-const {updateUser} = require('../controllers/userController')
+const {updateUser, getUser} = require('../controllers/userController')
 
 router.get('/', (req, res)=>{
   res.send('Hola')
 })
 
-router.route('/update')
+router.route('/UaG/:id')
+  .get(getUser)
   .post(updateUser)
 
 
