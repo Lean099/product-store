@@ -1,10 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { Context } from '../App';
+import { TYPES } from '../actions/cartAction';
 
 export const Home = ()=>{
 
+    const context = useContext(Context)
     const [products, setProducts] = useState([])
 
     useEffect(()=>{
@@ -12,6 +15,7 @@ export const Home = ()=>{
     }, [])
 
     console.log(products)
+    console.log(context.storeState)
     return(
         <div className="container">
             <h2 className="text-center my-2">Products For Sale Right Now</h2>
@@ -38,7 +42,7 @@ export const Home = ()=>{
                                     {product.title}
                                 </span>
                                 </div>
-                                <button className="btn">
+                                <button className="btn" onClick={()=>{context.storeDispatch({type: TYPES.ADD_TO_CART, payload: product._id})}}>
                                 <FontAwesomeIcon icon={faCartPlus} />
                                 </button>
                             </div>
