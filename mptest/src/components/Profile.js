@@ -1,21 +1,18 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
 import 'bootstrap/dist/js/bootstrap.js';
-import {
-  Link,
-  NavLink
-} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-import {UpdateUser} from './subComponentsProfile/UpdateUser'
-import {PurchasesMade} from './subComponentsProfile/PurchasesMade'
-import {SalesMade} from './subComponentsProfile/SalesMade'
+import { UpdateUser } from './subComponentsProfile/UpdateUser'
+import { PurchasesMade } from './subComponentsProfile/PurchasesMade'
+import { SalesMade } from './subComponentsProfile/SalesMade'
 import { PersonalData } from "./subComponentsProfile/PersonalData";
 import { useEffect, useState } from "react";
 
 export const Profile = ()=>{
 
-  const {user} = useAuth0()
+  const { user } = useAuth0()
   const [data, setData] = useState(null)
 
   useEffect(()=>{
@@ -46,24 +43,3 @@ export const Profile = ()=>{
 </div>
   )
 }
-
-
-
-/*export const Profile = ()=>{
-
-    const { user, isAuthenticated, isLoading } = useAuth0()
-
-    if(isLoading){
-        return <div>Loading ...</div>;
-    }
-
-    return(
-        isAuthenticated && (
-            <div>
-              <img src={user.picture} alt={user.name} />
-              <h2>{user.name}</h2>
-              <p>{user.email}</p>
-            </div>
-          )
-    )
-}*/

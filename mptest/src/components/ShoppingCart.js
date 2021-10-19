@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faCartPlus, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { NavLink, Link } from "react-router-dom";
+import { faShoppingCart, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { NavLink} from "react-router-dom";
 import { useContext } from 'react';
 import { Context } from '../App';
 import { TYPES } from "../actions/cartAction";
@@ -15,6 +15,9 @@ export const ShoppingCart = ()=>{
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
           <FontAwesomeIcon icon={faShoppingCart} />
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-1">
+              {context.storeState.cart.length}
+            </span>
           </a>
           
           <ul class="dropdown-menu dropdown-menu-light" style={{width: 'auto'}} aria-labelledby="navbarDarkDropdownMenuLink">

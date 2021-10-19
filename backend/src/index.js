@@ -27,6 +27,7 @@ app.use(multer({
 
 app.use('/api/user', require('./routes/user'))
 app.use('/api/product', require('./routes/product'))
+app.use('/api/mp', require('./routes/MP'))
 
 app.listen(app.get('port'), ()=>{
     console.log('Server on port', app.get('port'))

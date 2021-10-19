@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Context } from '../App';
@@ -14,8 +14,6 @@ export const Home = ()=>{
         axios.get('http://localhost:3001/api/product/getAll').then(res => setProducts(res.data.products)).catch(err => console.log(err))
     }, [])
 
-    console.log(products)
-    console.log(context.storeState)
     return(
         <div className="container">
             <h2 className="text-center my-2">Products For Sale Right Now</h2>

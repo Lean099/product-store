@@ -1,10 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-    Link,
-    NavLink
-  } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const SalesMade = ()=>{
 
@@ -33,11 +30,11 @@ export const SalesMade = ()=>{
         <h2 className="text-center">Sales</h2>
         <div className="col-md-12 d-grid">
           <div className="row">
+
             {sales.map(sale =>{
               return(
                 <div className="col-md-3 mt-2" key={sale._id}>
                 <div className="card p-2">
-                        {/* Puedo poner una tag a para la imagen en esta parte arriba del card-body */}
                       <img src={sale.image} alt={sale.title} className="img-fluid card-img-top"/>
                       <div className="card-body">
                         <h5 class="card-title">{sale.title}</h5>
@@ -52,6 +49,7 @@ export const SalesMade = ()=>{
               </div>
               )
             })}
+            
             </div>
         </div> 
       </div>
