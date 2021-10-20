@@ -15,24 +15,16 @@ router.post('/testmp', (req, res)=>{
 
 router.post('/preferenceId', async (req, res)=>{
 
-    let cart = req.body.cart.map(item => ({_id: item._id, title: item.title, description: item.description, image: item.image, currency_id: 'ARS', unit_price: item.price, quantity: item.quantityAddedInCart, idCostumer: item.idCostumer}))
+    let cart = req.body.cart.map(item => ({id: item._id, title: item.title, description: item.description, picture_url: item.image, currency_id: 'ARS', unit_price: item.price, quantity: item.quantityAddedInCart/*, idCostumer: item.idCostumer*/}))
     console.log(cart)
     const preference = {
       items: cart,
       back_urls: {
-        "success": "http://localhost:3001/feedback",
-        "failure": "http://localhost:3001/feedback",
-        "pending": "http://localhost:3001/feedback"
+        "success": "http://localhost:3000/feedback",
+        "failure": "http://localhost:3000/feedback",
+        "pending": "http://localhost:3000/feedback"
       },
       auto_return: "approved"
-        /*items: [
-          {
-            title: 'Test',
-            quantity: 1,
-            currency_id: 'ARS',
-            unit_price: 10.5
-          }
-        ]*/
       };
 
     const respuesta =  await mercadopago.preferences.create(preference)
@@ -41,6 +33,7 @@ router.post('/preferenceId', async (req, res)=>{
 })
 
 router.get('/feedback', (req, res)=>{
+  /* http://localhost:3000/feedback?collection_id=1242508970&collection_status=approved&payment_id=1242508970&status=approved&external_reference=null&payment_type=credit_card&merchant_order_id=3444106519&preference_id=344496458-9ca7677f-5bf4-4a04-8460-108133d4fcca&site_id=MLA&processing_mode=aggregator&merchant_account_id=null */
     res.json({
       Payment: req.query.payment_id,
       Status: req.query.status,

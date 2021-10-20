@@ -5,6 +5,7 @@ import { Navigation } from "./components/Navigation";
 import { Home } from "./components/Home";
 import { Profile } from "./components/Profile";
 import { CreateProduct } from "./components/CreateProduct";
+import { Feedback } from "./components/Feedback";
 import { PurchaseSection } from "./components/PurchaseSection"
 import ProtectedRoute from "./auth/protected-route";
 import axios from "axios";
@@ -31,6 +32,7 @@ function App() {
           <ProtectedRoute path="/createProduct" component={CreateProduct}/>
           <ProtectedRoute path="/purchaseSection" component={PurchaseSection} />
           <ProtectedRoute path="/edit/:id" component={CreateProduct}/>
+          <ProtectedRoute exact path="/feedback" component={Feedback} />
         </Context.Provider>
     </Router>
   );
