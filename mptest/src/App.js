@@ -28,10 +28,10 @@ function App() {
         <Context.Provider value={{storeState: state, storeDispatch: dispatch}}>
           <Navigation/>
           <Route path="/" exact component={Home}/>
-          <ProtectedRoute path="/profile" component={Profile}/>
-          <ProtectedRoute path="/createProduct" component={CreateProduct}/>
-          <ProtectedRoute path="/purchaseSection" component={PurchaseSection} />
-          <ProtectedRoute path="/edit/:id" component={CreateProduct}/>
+          <ProtectedRoute exact path="/profile" component={Profile}/>
+          <ProtectedRoute exact path="/createProduct" component={CreateProduct}/>
+          <ProtectedRoute exact path="/purchaseSection" component={PurchaseSection} />
+          <ProtectedRoute exact path="/edit/:id" component={CreateProduct}/>
           <ProtectedRoute exact path="/feedback" component={Feedback} />
         </Context.Provider>
     </Router>

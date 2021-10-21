@@ -16,15 +16,13 @@ export const Feedback = ()=>{
             })
         })
         setQueries(formattedQueries)
-
-        console.log(formattedQueries)
     }
 
     useEffect(()=>{
         if(search.trim()){
             onDecodeParams(search)
         }
-    }, [])
+    }, [queries])
 
     return(
         <div>
