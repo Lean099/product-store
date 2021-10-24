@@ -12,7 +12,7 @@ cloudinary.config({
 const userController = {}
 
 userController.getUser = async (req, res)=>{
-    const user = await User.findOne({email: req.params.id})
+    const user = await User.findOne({_id: req.params.id})
     res.json({user: user})
 }
 
@@ -20,7 +20,7 @@ userController.updateUser = async (req, res)=>{
     const {name, lastname, phone, dni, adress, email} = req.body
     if(req.file){
         const result = await cloudinary.v2.uploader.upload(req.file.path)
-        const user = await User.findOneAndUpdate({email: req.params.id}, {avatar: result.url, name: name, lastname: lastname, phone: phone, dni: dni, adress: adress})
+        const user = await User.findOneAndUpdate({_id: req.params.id}, {avatar: result.url, name: name, lastname: lastname, phone: phone, dni: dni, adress: adress})
         const newAvatar = new Photo({
             idCostumer: user._id,
             idProduct: '',  // Es un avatar no un producto, no confundir
@@ -30,7 +30,7 @@ userController.updateUser = async (req, res)=>{
         await newAvatar.save()
         await Photo.findOneAndDelete({imageURL: user.avatar})
     }else{
-        await User.findOneAndUpdate({email: req.params.id}, {name: name, lastname: lastname, phone: phone, dni: dni, adress: adress})
+        await User.findOneAndUpdate({_id: req.params.id}, {name: name, lastname: lastname, phone: phone, dni: dni, adress: adress})
     }
     
     res.json({message: 'User updated Successfully'})
@@ -38,15 +38,15 @@ userController.updateUser = async (req, res)=>{
 
 userController.updateUserLoginData = async (req, res) =>{
     const {email, password} = req.body
-    await User.findOneAndUpdate({email: req.params.id}, {email: email, password: password})
+    await User.findOneAndUpdate({_id: req.params.id}, {email: email, password: password})
     res.json({message: 'Updated login data'})
 }
 
 userController.deleteUser = async (req, res)=>{
     // Borrara el usuario junto con toda la informacion relacionada (compras, ventas, imagenes)
-    const userDeleted = await User.findOneAndDelete({email: req.params.id})
+    const userDeleted = await User.findOneAndDelete({_id: req.params.id})
     await Product.deleteMany({idCostumer: userDeleted._id})
-    const photosUser = await Photo.find({idCostumer: req.params.id})
+    const photosUser = await Photo.find({idCostumer: userDeleted._id})
     photosUser.forEach(async photo => await cloudinary.v2.uploader.destroy(photo.public_id))
     await Photo.deleteMany({idCostumer: userDeleted._id})
     res.json({message: 'User deleted Successfully, as well as their products and photos'})

@@ -57,7 +57,7 @@ productController.testRequest = async (req, res)=>{
 }
 
 productController.newProduct = async (req, res)=>{
-    const user = await User.findOne({email: req.params.id})
+    const user = await User.findOne({_id: req.params.id})
     const {title, description, image, price, quantity} = req.body
     
     const result = await cloudinary.v2.uploader.upload(req.file.path)
@@ -72,7 +72,7 @@ productController.newProduct = async (req, res)=>{
         idCostumer: user._id
     })
     const productSaved = await product.save()
-    await User.findOneAndUpdate({email: req.params.id}, {$push: {idProducts: product._id}})
+    await User.findOneAndUpdate({_id: req.params.id}, {$push: {idProducts: product._id}})
 
     const newPhoto = new Photo({
         idCostumer: user._id,

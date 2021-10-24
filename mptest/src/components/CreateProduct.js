@@ -70,7 +70,7 @@ export const CreateProduct = ()=>{
       formData.append('quantity', datos.quantity)
       formData.append('description', datos.description)
       formData.append('file', file)
-      await axios.post(`http://localhost:3001/api/product/CaG/${user.email}`, formData)
+      await axios.post(`http://localhost:3001/api/product/CaG/${user.sub.replace('auth0|', '')}`, formData)
       history.push('/')
     }
   }

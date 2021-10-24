@@ -16,7 +16,7 @@ export const Profile = ()=>{
   const [data, setData] = useState(null)
 
   useEffect(()=>{
-    axios.get(`http://localhost:3001/api/user/UaG/${user.email}`).then(dataRes =>{
+    axios.get(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(dataRes =>{
       setData(dataRes)
     })
   }, [])

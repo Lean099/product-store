@@ -10,7 +10,7 @@ export const SalesMade = ()=>{
     const [sales, setSales] = useState([])
 
     useEffect(()=>{
-      axios.get(`http://localhost:3001/api/user/UaG/${user.email}`).then(res => setIdUser(res.data.user._id))
+      axios.get(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res => setIdUser(res.data.user._id))
     }, [])
 
     useEffect(()=>{
