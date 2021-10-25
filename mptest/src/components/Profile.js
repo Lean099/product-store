@@ -8,6 +8,7 @@ import { UpdateUser } from './subComponentsProfile/UpdateUser'
 import { PurchasesMade } from './subComponentsProfile/PurchasesMade'
 import { SalesMade } from './subComponentsProfile/SalesMade'
 import { PersonalData } from "./subComponentsProfile/PersonalData";
+import { Settings } from "./subComponentsProfile/Settings";
 import { useEffect, useState } from "react";
 
 export const Profile = ()=>{
@@ -37,7 +38,7 @@ export const Profile = ()=>{
       <div class="tab-pane fade show active m-3" id="list-home" role="tabpanel" aria-labelledby="list-home-list"><UpdateUser/></div>
       <div class="tab-pane fade m-3" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"><PurchasesMade/></div>
       <div class="tab-pane fade m-3" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list"><SalesMade/></div>
-      <div class="tab-pane fade m-3" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">SETTINGS (ACA SE PODRA BORRAR LA CUENTA JUNTO CON TODA SU INFORMACION)</div>
+      <div class="tab-pane fade m-3" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list"><Settings/></div>
     </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useEffect, useState } from 'react';
+import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { Context } from '../App';
 import { TYPES } from '../actions/cartAction';
@@ -18,10 +19,10 @@ export const Home = ()=>{
     }, [])
 
     useEffect(()=>{
-        if(products.length!==0){
+        if(products.length!==0 && user){
             setFilterProducts(products.filter(product => product.idCostumer!=user.sub.replace('auth0|', '')))
         }
-    }, [user])
+    }, [user, products])
 
     console.log(filterProducts)
 
@@ -59,7 +60,7 @@ export const Home = ()=>{
                                 <div className="card-body d-grid">
                                     <h5>${product.price}</h5>
                                     <p>{product.description}</p>
-                                    <button className="btn btn-primary btn-sm">Buy Directly</button>
+                                    <NavLink to="/purchaseSection" onClick={()=>{ context.storeDispatch({type: TYPES.SINGLE_PURCHASE, payload: product._id}) }} className="btn btn-primary btn-sm">Buy Directly</NavLink>
                                 </div>
                             </div>
                             </div>
@@ -105,7 +106,7 @@ export const Home = ()=>{
                                 <div className="card-body d-grid">
                                     <h5>${product.price}</h5>
                                     <p>{product.description}</p>
-                                    <button className="btn btn-primary btn-sm">Buy Directly</button>
+                                    <NavLink to="/purchaseSection" onClick={()=>{ context.storeDispatch({type: TYPES.SINGLE_PURCHASE, payload: product._id}) }} className="btn btn-primary btn-sm">Buy Directly</NavLink>
                                 </div>
                             </div>
                             </div>

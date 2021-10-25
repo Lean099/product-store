@@ -7,6 +7,7 @@ import { Profile } from "./components/Profile";
 import { CreateProduct } from "./components/CreateProduct";
 import { Feedback } from "./components/Feedback";
 import { PurchaseSection } from "./components/PurchaseSection"
+import { AccountDeleted } from "./components/subComponentsProfile/AccountDeleted";
 import ProtectedRoute from "./auth/protected-route";
 import axios from "axios";
 
@@ -33,6 +34,7 @@ function App() {
           <ProtectedRoute exact path="/purchaseSection" component={PurchaseSection} />
           <ProtectedRoute exact path="/edit/:id" component={CreateProduct}/>
           <ProtectedRoute exact path="/feedback" component={Feedback} />
+          <Route exact path="/feedbackDelete" component={AccountDeleted}/>
         </Context.Provider>
     </Router>
   );

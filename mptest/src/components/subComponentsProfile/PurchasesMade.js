@@ -2,11 +2,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import TimeAgo from 'timeago-react';
+import * as timeago from 'timeago.js';
+import es from 'timeago.js/lib/lang/es';
 
 export const PurchasesMade = ()=>{
     const [userData, setUserData] = useState(null)
     let [items, setItems] = useState([])
     const { user } = useAuth0()
+    timeago.register('es', es);
+
     useEffect(()=>{
       axios.get(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res=> setUserData(res.data.user.shopFeedback))
     }, [])
@@ -44,7 +49,7 @@ export const PurchasesMade = ()=>{
                             </div>
                             <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">Purchase {item.date_approved}</h5>
+                                <h5 class="card-title">Compra <TimeAgo datetime={item.date_approved} locale='es'/></h5>
                                 <span class="badge bg-success me-2">{item.status.charAt(0).toUpperCase() + item.status.slice(1)}</span>
                                 <span class="badge bg-warning text-dark">{item.status_detail.charAt(0).toUpperCase() + item.status_detail.slice(1)}</span>
                                 <h6 className="mt-1">Products:</h6>
