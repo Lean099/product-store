@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useContext } from 'react';
 import { Context } from '../App';
 import { TYPES } from "../actions/cartAction";
@@ -10,38 +10,47 @@ export const ShoppingCart = ()=>{
   const context = useContext(Context)
 
   return(
-    <div className="collapse navbar-collapse me-2" id="navbarNavDarkDropdown">
-      <ul className="navbar-nav">
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
-          <FontAwesomeIcon icon={faShoppingCart} />
-            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-1">
-              {context.storeState.cart.length}
-            </span>
-          </a>
-          
-          <ul className="dropdown-menu dropdown-menu-light" style={{width: 'auto'}} aria-labelledby="navbarDarkDropdownMenuLink">
+    <div class="dropdown me-3">
+      <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
+        <FontAwesomeIcon icon={faShoppingCart} />
+        <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+            {context.storeState.cart.length}
+        </span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style={{minWidth: '15rem', maxWidth: '17rem'}}>
 
-            {context.storeState.cart.map(item=>(
-              <li className="pt-1"><div className="d-flex justify-content-around">
-                <img 
-                src={item.image}
-                className="img-fluid rounded" style={{height: '50px', width: '50px'}} 
-                alt="imgProduct"
-                />
-                <div className="d-flex align-items-center me-3">
-                  <span style={{ verticalAlign: 'middle' }}>{item.title}</span>
-                  <span className="badge bg-dark me-1">x{item.quantityAddedInCart}</span>
-                  <button className="btn btn-primary btn-sm me-1" onClick={()=>{context.storeDispatch({type: TYPES.ADD_ONE_CART, payload: item._id})}}><FontAwesomeIcon icon={faPlus} /></button>
-                  <button className="btn btn-danger btn-sm me-1" onClick={()=>{context.storeDispatch({type: TYPES.REMOVE_ONE_CART, payload: item._id})}}><FontAwesomeIcon icon={faMinus} /></button>
+        {context.storeState.cart.map(item=>
+
+          (<li key={item._id} class="pt-1">
+            <div class="d-flex flex-row align-items-center">
+
+                <div class="flex-shrink-0">
+                  <img 
+                    src={item.image}
+                    class="img-fluid rounded p-1" style={{height: '50px', width: '50px'}} 
+                    alt="imgProduct"
+                  />
+                </div>
+                <div class="" style={{width: 'max-content'}}>
+                  <span class="me-2" style={{ verticalAlign: 'middle' }}>{item.title}</span>
+                </div>
+                <div class="">
+                  <span class="badge bg-dark me-1 text-center">x{item.quantityAddedInCart}</span>
+                </div>
+               
+                <div class="">
+                  <button class="btn btn-primary btn-sm me-1" onClick={()=>{context.storeDispatch({type: TYPES.ADD_ONE_CART, payload: item._id})}}><FontAwesomeIcon icon={faPlus} /></button>
+                </div>
+                <div class="">
+                  <button class="btn btn-danger btn-sm me-1" onClick={()=>{context.storeDispatch({type: TYPES.REMOVE_ONE_CART, payload: item._id})}}><FontAwesomeIcon icon={faMinus} /></button>
                 </div>
               </div>
             </li>
-            ))}
-            
-            <li className="pt-1"><div className="d-grid"><NavLink to="/purchaseSection" className="btn btn-primary btn-sm mx-2">Buy</NavLink></div></li>
-          </ul>
-        </li>
+
+          ))}
+          <li class="pt-1">
+            <div class="d-grid"><NavLink to="/purchaseSection" id="buy" className="btn btn-primary btn-sm mx-2">Buy</NavLink></div>
+          </li>
       </ul>
     </div>
   )
