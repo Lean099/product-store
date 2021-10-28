@@ -16,8 +16,6 @@ export const PurchaseSection = () => {
       axios.post('http://localhost:3001/api/mp/preferenceId', payload).then(res => setPreferenceId(res.data.body.id))
     }, [])
 
-    console.log(context.storeState.cart)
-    console.log(preferenceId)
     return (
       <div className="container">
         <div className="col-md-8 offset-md-2 bg-secondary d-grid">
@@ -37,7 +35,7 @@ export const PurchaseSection = () => {
                         <h5>Precio: ${item.price}</h5>
                         <div className="d-flex">
                           <label className="me-2">Quantity:</label>
-                          <input class="form-control me-2" type="text" style={{width: '37px'}} value={item.quantityAddedInCart} aria-label="Disabled input example" disabled readonly/>
+                          <input className="form-control me-2" type="text" style={{width: '37px'}} value={item.quantityAddedInCart} aria-label="Disabled input example" disabled readonly/>
                           <button className="btn btn btn-dark btn-sm me-2" onClick={()=>{context.storeDispatch({type: TYPES.ADD_ONE_CART, payload: item._id})}}>+</button>
                           <button className="btn btn btn-dark btn-sm me-2" onClick={()=>{context.storeDispatch({type: TYPES.REMOVE_ONE_CART, payload: item._id})}}>-</button>
                         </div>

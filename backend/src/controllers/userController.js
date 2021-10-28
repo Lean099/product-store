@@ -23,7 +23,7 @@ userController.updateUser = async (req, res)=>{
         const user = await User.findOneAndUpdate({_id: req.params.id}, {avatar: result.url, name: name, lastname: lastname, phone: phone, dni: dni, adress: adress})
         const newAvatar = new Photo({
             idCostumer: user._id,
-            idProduct: '',  // Es un avatar no un producto, no confundir
+            idProduct: '',
             imageURL: result.url,
             public_id: result.public_id
         })
@@ -43,7 +43,6 @@ userController.updateUserLoginData = async (req, res) =>{
 }
 
 userController.deleteUser = async (req, res)=>{
-    // Borrara el usuario junto con toda la informacion relacionada (compras, ventas, imagenes)
     const userDeleted = await User.findOneAndDelete({_id: req.params.id})
     await Product.deleteMany({idCostumer: userDeleted._id})
     const photosUser = await Photo.find({idCostumer: userDeleted._id})

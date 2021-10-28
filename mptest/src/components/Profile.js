@@ -23,8 +23,8 @@ export const Profile = ()=>{
   }, [])
 
   return(
-    <div class="row">
-  <div class="col-3">
+    <div className="row">
+  <div className="col-3">
     <div class="list-group" id="list-tab" role="tablist">
       <NavLink class="list-group-item list-group-item-action active p-2 d-flex justify-content-center fs-6" id="list-home-list" data-bs-toggle="list" to="#list-home" role="tab" aria-controls="list-home">Personal Data</NavLink>
       <NavLink class="list-group-item list-group-item-action p-2 d-flex justify-content-center fs-6" id="list-profile-list" data-bs-toggle="list" to="#list-profile" role="tab" aria-controls="list-profile">Purchases Made</NavLink>
@@ -33,7 +33,7 @@ export const Profile = ()=>{
       <PersonalData/>
     </div>
   </div>
-  <div class="col-9">
+  <div className="col-9">
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active m-3" id="list-home" role="tabpanel" aria-labelledby="list-home-list"><UpdateUser/></div>
       <div class="tab-pane fade m-3" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"><PurchasesMade/></div>

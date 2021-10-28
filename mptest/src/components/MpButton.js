@@ -23,23 +23,7 @@ export const MpButton = (props)=>{
 
     }, [props.preferenceId])
 
-    /*useEffect(() => {
-        if (mercadoPago) {
-            mercadoPago.checkout({
-                preference: {
-                    id: 'YOUR_PREFERENCE_ID'
-                },
-                render: {
-                    container: '.cho-container',
-                    label: 'Pagar con Mercado Pago',
-                }
-            })
-        }
-    }, [mercadoPago])*/
-
-
-
     return(
-            <div class="cho-container d-grid"></div>
+            <div className="cho-container d-grid"></div>
     )
 }

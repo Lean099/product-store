@@ -1,10 +1,7 @@
 const { Router } = require('express')
 const router = Router()
 
-const {newProduct, getProduct, getAllProductsCostumer, updateProduct, deleteProduct, getAllProducts, testRequest} = require('../controllers/productController')
-
-router.route('/test')
-    .post(testRequest)
+const {newProduct, getProduct, getAllProductsCostumer, updateProduct, deleteProduct, getAllProducts} = require('../controllers/productController')
 
 router.route('/getAll')
     .get(getAllProducts)

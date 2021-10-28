@@ -9,8 +9,8 @@ const PhotoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Product'
     },
-    imageURL: String,     // Esta es la url que nos da cloudinary donde se guarda la img
-    public_id: String   // Este es el id unico o nombre unico que nos da cloudinary
+    imageURL: String,     
+    public_id: String 
 })
 
 module.exports = model('Photo', PhotoSchema)

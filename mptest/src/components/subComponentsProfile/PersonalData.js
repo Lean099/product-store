@@ -11,8 +11,6 @@ export const PersonalData = ()=>{
       axios.get(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res => setDataUser(res.data.user))
     }, [])
 
-    console.log(dataUser)
-    console.log(user.sub.replace('auth0|', ''))
     return(
         <div className="card mt-4">
         <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" class="mt-1" style={{borderRadius: '50%', width: '250px', height: '250px', marginLeft: 'auto', marginRight: 'auto'}} alt="imgUser"/>

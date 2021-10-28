@@ -1,11 +1,9 @@
-import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
 export const Settings = ()=>{
 
     const { user, logout } = useAuth0()
-    const history = useHistory()
 
     const sendDelete = (e)=>{
         e.preventDefault()

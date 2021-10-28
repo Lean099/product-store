@@ -24,8 +24,6 @@ export const Home = ()=>{
         }
     }, [user, products])
 
-    console.log(filterProducts)
-
     if(isAuthenticated && filterProducts.length!==0){
         return(
         <div className="container">

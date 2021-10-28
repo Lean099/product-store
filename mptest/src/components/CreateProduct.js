@@ -39,12 +39,10 @@ export const CreateProduct = ()=>{
         ...datos,
         [event.target.name] : event.target.value
     })
-    console.log(datos)
   }
 
   const handleFile = (e)=>{
     setFile(e.target.files[0])
-    console.log(file)
   }
 
   const resetInputFile = (e)=>{
@@ -81,53 +79,53 @@ export const CreateProduct = ()=>{
           <div className="row">
             <div className="col">
               <div className="card">
-                <img src={urlImage} class="card-img-top img-fluid rounded" alt=""/>
+                <img src={urlImage} className="card-img-top img-fluid rounded" alt=""/>
                 <div className="card-body">
                   <div className="row pb-2">
                     <div className="col">
-                            <label for="producto" class="form-label">Title Product</label>
-                            <input type="text" class="form-control" name="title" value={datos.title} onChange={handleInputChange} id="product" placeholder="Sneakers..." required/>
-                            <div class="valid-feedback">
+                            <label for="producto" className="form-label">Title Product</label>
+                            <input type="text" className="form-control" name="title" value={datos.title} onChange={handleInputChange} id="product" placeholder="Sneakers..." required/>
+                            <div className="valid-feedback">
                               Looks good!
                             </div>
                       </div>
                       <div className="col">
-                            <label for="price" class="form-label">Price</label>
+                            <label for="price" className="form-label">Price</label>
                             <div className="input-group">
-                                <span class="input-group-text ">$</span>
-                                <input type="text" class="form-control" name="price" value={datos.price} onChange={handleInputChange} id="price" placeholder="$9.99..." required/>
-                                <div class="valid-feedback">
+                                <span className="input-group-text ">$</span>
+                                <input type="text" className="form-control" name="price" value={datos.price} onChange={handleInputChange} id="price" placeholder="$9.99..." required/>
+                                <div className="valid-feedback">
                                   Looks good!
                                 </div>
                             </div>   
                       </div>
                       <div className="col">
-                            <label for="quantity" class="form-label">Quantity</label>
-                            <input type="text" class="form-control" name="quantity" value={datos.quantity} onChange={handleInputChange} id="quantity" placeholder="10..." required/>
-                            <div class="valid-feedback">
+                            <label for="quantity" className="form-label">Quantity</label>
+                            <input type="text" className="form-control" name="quantity" value={datos.quantity} onChange={handleInputChange} id="quantity" placeholder="10..." required/>
+                            <div className="valid-feedback">
                                 Looks good!
                             </div>
                       </div>
                   </div>
                   <div className="row pb-2">
                       <div className="col">
-                            <label for="descriptionPro" class="form-label">Product description</label>
-                            <textarea class="form-control" name="description" value={datos.description} onChange={handleInputChange} id="descriptionPro" placeholder="Sneakers for sports..." required></textarea>
-                            <div class="valid-feedback">
+                            <label for="descriptionPro" className="form-label">Product description</label>
+                            <textarea className="form-control" name="description" value={datos.description} onChange={handleInputChange} id="descriptionPro" placeholder="Sneakers for sports..." required></textarea>
+                            <div className="valid-feedback">
                               Looks good!
                             </div>
                         </div>
                   </div>
                   <div className="row pb-3">
                     <div className="col">
-                            <label for="image" class="form-label">Product image</label>
+                            <label for="image" className="form-label">Product image</label>
                             <div className="input-group">
-                                <input type="file" class="form-control" name="file" onChange={handleFile} id="image" aria-describedby="image" aria-label="Upload" required />
-                                <button class="btn btn-dark" onClick={resetInputFile} type="button" id="image">
-                                      <div class="btn-close btn-close-white"></div>
+                                <input type="file" className="form-control" name="file" onChange={handleFile} id="image" aria-describedby="image" aria-label="Upload" required />
+                                <button className="btn btn-dark" onClick={resetInputFile} type="button" id="image">
+                                      <div className="btn-close btn-close-white"></div>
                                 </button>
                             </div>
-                            <div class="valid-feedback">
+                            <div className="valid-feedback">
                               Looks good!
                             </div>
                     </div>

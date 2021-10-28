@@ -10,20 +10,20 @@ export const ShoppingCart = ()=>{
   const context = useContext(Context)
 
   return(
-    <div class="collapse navbar-collapse me-2" id="navbarNavDarkDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
+    <div className="collapse navbar-collapse me-2" id="navbarNavDarkDropdown">
+      <ul className="navbar-nav">
+        <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" data-bs-auto-close="false" aria-expanded="false">
           <FontAwesomeIcon icon={faShoppingCart} />
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-1">
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger mt-1">
               {context.storeState.cart.length}
             </span>
           </a>
           
-          <ul class="dropdown-menu dropdown-menu-light" style={{width: 'auto'}} aria-labelledby="navbarDarkDropdownMenuLink">
+          <ul className="dropdown-menu dropdown-menu-light" style={{width: 'auto'}} aria-labelledby="navbarDarkDropdownMenuLink">
 
             {context.storeState.cart.map(item=>(
-              <li className="pt-1"><div class="d-flex justify-content-around">
+              <li className="pt-1"><div className="d-flex justify-content-around">
                 <img 
                 src={item.image}
                 className="img-fluid rounded" style={{height: '50px', width: '50px'}} 

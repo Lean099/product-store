@@ -37,8 +37,8 @@ export const SalesMade = ()=>{
                 <div className="card p-2">
                       <img src={sale.image} alt={sale.title} className="img-fluid card-img-top"/>
                       <div className="card-body">
-                        <h5 class="card-title">{sale.title}</h5>
-                        <p class="card-text">{sale.description}</p>
+                        <h5 className="card-title">{sale.title}</h5>
+                        <p className="card-text">{sale.description}</p>
                         <h4>${sale.price}</h4>
                       </div>
                       <div className="card-footer d-flex justify-content-around">
