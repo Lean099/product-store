@@ -14,9 +14,9 @@ router.post('/preferenceId', async (req, res)=>{
     const preference = {
       items: cart,
       back_urls: {
-        "success": "http://localhost:3000/feedback",
-        "failure": "http://localhost:3000/feedback",
-        "pending": "http://localhost:3000/feedback"
+        "success": `${process.env.REACT_APP_URL}/feedback`,
+        "failure": `${process.env.REACT_APP_URL}/feedback`,
+        "pending": `${process.env.REACT_APP_URL}/feedback`
       },
       auto_return: "approved"
       };
