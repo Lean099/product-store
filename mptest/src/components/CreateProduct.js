@@ -22,7 +22,7 @@ export const CreateProduct = ()=>{
   useEffect(()=>{
     if(id){
       setEdit(true)
-      axios.get(`http://localhost:3001/api/product/singleProduct/${id}`).then(res =>{
+      axios.get(`${process.env.REACT_APP_API_URL}/api/product/singleProduct/${id}`).then(res =>{
         setDatos({
           title: res.data.product.title,
           price: res.data.product.price,
@@ -58,7 +58,7 @@ export const CreateProduct = ()=>{
       formData.append('quantity', datos.quantity)
       formData.append('description', datos.description)
       formData.append('file', file)
-      await axios.post(`http://localhost:3001/api/product/UaD/${id}`, formData)
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/product/UaD/${id}`, formData)
       setEdit(false)
       history.push('/')
     }else{
@@ -68,7 +68,7 @@ export const CreateProduct = ()=>{
       formData.append('quantity', datos.quantity)
       formData.append('description', datos.description)
       formData.append('file', file)
-      await axios.post(`http://localhost:3001/api/product/CaG/${user.sub.replace('auth0|', '')}`, formData)
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/product/CaG/${user.sub.replace('auth0|', '')}`, formData)
       history.push('/')
     }
   }

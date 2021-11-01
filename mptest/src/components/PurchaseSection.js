@@ -13,7 +13,7 @@ export const PurchaseSection = () => {
       let payload = {
         cart: context.storeState.cart
       }
-      axios.post('http://localhost:3001/api/mp/preferenceId', payload).then(res => setPreferenceId(res.data.body.id))
+      axios.post(`${process.env.REACT_APP_API_URL}/api/mp/preferenceId`, payload).then(res => setPreferenceId(res.data.body.id))
     }, [])
 
     return (

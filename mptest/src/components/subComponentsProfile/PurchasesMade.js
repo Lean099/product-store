@@ -12,13 +12,13 @@ export const PurchasesMade = ()=>{
     timeago.register('es', es);
 
     useEffect(()=>{
-      axios.get(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res=> setUserData(res.data.user.shopFeedback))
+      axios.get(`${process.env.REACT_APP_API_URL}/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res=> setUserData(res.data.user.shopFeedback))
     }, [])
 
     useEffect(()=>{
       if(userData!==null){
         userData.map(purchase=>{
-          axios.get(`http://localhost:3001/api/mp/getPurchases/${purchase.payment_id}`).then(res =>{
+          axios.get(`${process.env.REACT_APP_API_URL}/api/mp/getPurchases/${purchase.payment_id}`).then(res =>{
             items = [...items, res.data]
             setItems(items)
           })

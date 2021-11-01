@@ -7,8 +7,8 @@ export const Settings = ()=>{
 
     const sendDelete = (e)=>{
         e.preventDefault()
-        axios.post(`http://localhost:3001/api/user/deleteUser/${user.sub.replace('auth0|', '')}`).then(res=>{
-            logout({returnTo: 'http://localhost:3000/feedbackDelete'})
+        axios.post(`${process.env.REACT_APP_API_URL}/api/user/deleteUser/${user.sub.replace('auth0|', '')}`).then(res=>{
+            logout({returnTo: `${process.env.REACT_APP_URL}/feedbackDelete`})
         })
     }
 

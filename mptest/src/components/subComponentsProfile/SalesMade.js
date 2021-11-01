@@ -10,18 +10,18 @@ export const SalesMade = ()=>{
     const [sales, setSales] = useState([])
 
     useEffect(()=>{
-      axios.get(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res => setIdUser(res.data.user._id))
+      axios.get(`${process.env.REACT_APP_API_URL}/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res => setIdUser(res.data.user._id))
     }, [])
 
     useEffect(()=>{
       if(idUser){
-        axios.get(`http://localhost:3001/api/product/CaG/${idUser}`).then(res => setSales(res.data.product))
+        axios.get(`${process.env.REACT_APP_API_URL}/api/product/CaG/${idUser}`).then(res => setSales(res.data.product))
       }
     }, [idUser])
 
     const deleteSale = async (id)=>{
-      await axios.delete(`http://localhost:3001/api/product/UaD/${id}`)
-      const products = await axios.get(`http://localhost:3001/api/product/CaG/${idUser}`)
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/product/UaD/${id}`)
+      const products = await axios.get(`${process.env.REACT_APP_API_URL}/api/product/CaG/${idUser}`)
       setSales(products.data.product)
     }
 

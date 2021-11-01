@@ -8,7 +8,7 @@ export const PersonalData = ()=>{
     const { user } = useAuth0()
 
     useEffect(()=>{
-      axios.get(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res => setDataUser(res.data.user))
+      axios.get(`${process.env.REACT_APP_API_URL}/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(res => setDataUser(res.data.user))
     }, [])
 
     return(

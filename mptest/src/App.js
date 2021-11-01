@@ -21,7 +21,7 @@ function App() {
   const [state, dispatch] = useReducer(shoppingCartReducer, initialState)
 
   useEffect(()=>{
-    axios.get('http://localhost:3001/api/product/getAll').then(res => dispatch({type: TYPES.ADD_PRODUCTS, payload: res.data.products})).catch(err => console.log(err))
+    axios.get(`${process.env.REACT_APP_API_URL}/api/product/getAll`).then(res => dispatch({type: TYPES.ADD_PRODUCTS, payload: res.data.products})).catch(err => console.log(err))
   }, [])
 
   return (

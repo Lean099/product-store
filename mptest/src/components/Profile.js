@@ -1,26 +1,13 @@
-import { useAuth0 } from "@auth0/auth0-react";
-
 import 'bootstrap/dist/js/bootstrap.js';
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 
 import { UpdateUser } from './subComponentsProfile/UpdateUser'
 import { PurchasesMade } from './subComponentsProfile/PurchasesMade'
 import { SalesMade } from './subComponentsProfile/SalesMade'
 import { PersonalData } from "./subComponentsProfile/PersonalData";
 import { Settings } from "./subComponentsProfile/Settings";
-import { useEffect, useState } from "react";
 
 export const Profile = ()=>{
-
-  const { user } = useAuth0()
-  const [data, setData] = useState(null)
-
-  useEffect(()=>{
-    axios.get(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`).then(dataRes =>{
-      setData(dataRes)
-    })
-  }, [])
 
   return(
     <div className="row">

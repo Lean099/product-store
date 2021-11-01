@@ -7,7 +7,7 @@ const path = require('path')
 const app = express()
 require('./database')
 
-app.set('port', 3001)
+app.set('port', process.env.PORT || 3001)
 
 app.use(cors())
 app.use(express.urlencoded({extended: false}))

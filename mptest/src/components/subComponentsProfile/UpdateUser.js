@@ -56,7 +56,7 @@ export const UpdateUser = ()=>{
 
     const sendData = (e)=>{
       e.preventDefault()
-      axios.post(`http://localhost:3001/api/user/UaG/${user.sub.replace('auth0|', '')}`, {
+      axios.post(`${process.env.REACT_APP_API_URL}/api/user/UaG/${user.sub.replace('auth0|', '')}`, {
         name: datos.name,
         lastname: datos.lastname,
         phone: datos.phone,

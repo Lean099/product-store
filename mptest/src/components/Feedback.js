@@ -31,7 +31,7 @@ export const Feedback = ()=>{
 
     useEffect(()=>{
         if(queries){
-            axios.post(`http://localhost:3001/api/mp/feedback/${user.sub.replace('auth0|', '')}`, {
+            axios.post(`${process.env.REACT_APP_API_URL}/api/mp/feedback/${user.sub.replace('auth0|', '')}`, {
               payment_id: queries.payment_id,
               preference_id: queries.preference_id,
               status: queries.status,

@@ -15,7 +15,7 @@ export const Home = ()=>{
     let [filterProducts, setFilterProducts] = useState([])
 
     useEffect(()=>{
-        axios.get('http://localhost:3001/api/product/getAll').then(res => setProducts(res.data.products)).catch(err => console.log(err))
+        axios.get(`${process.env.REACT_APP_API_URL}/api/product/getAll`).then(res => setProducts(res.data.products)).catch(err => console.log(err))
     }, [])
 
     useEffect(()=>{
