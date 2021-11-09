@@ -58,7 +58,7 @@ export const Home = ()=>{
                                 <div className="card-body d-grid">
                                     <h5>${product.price}</h5>
                                     <p>{product.description}</p>
-                                    <NavLink to="/purchaseSection" onClick={()=>{ context.storeDispatch({type: TYPES.SINGLE_PURCHASE, payload: product._id}) }} className="btn btn-primary btn-sm">Buy Directly</NavLink>
+                                    <NavLink to="/purchaseSection" onClick={()=>{ context.storeDispatch({type: TYPES.SINGLE_PURCHASE, payload: product._id}) }} className="btn btn-primary btn-sm">Buy Now</NavLink>
                                 </div>
                             </div>
                             </div>
@@ -104,7 +104,7 @@ export const Home = ()=>{
                                 <div className="card-body d-grid">
                                     <h5>${product.price}</h5>
                                     <p>{product.description}</p>
-                                    <NavLink to="/purchaseSection" onClick={()=>{ context.storeDispatch({type: TYPES.SINGLE_PURCHASE, payload: product._id}) }} className="btn btn-primary btn-sm">Buy Directly</NavLink>
+                                    <NavLink to="/purchaseSection" onClick={()=>{ context.storeDispatch({type: TYPES.SINGLE_PURCHASE, payload: product._id}) }} className="btn btn-primary btn-sm">Buy Now</NavLink>
                                 </div>
                             </div>
                             </div>
