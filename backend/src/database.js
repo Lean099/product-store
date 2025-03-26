@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_CONNECTION, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-});
+mongoose.connect(process.env.MONGO_CONNECTION, {});
 
 const connection = mongoose.connection;
 

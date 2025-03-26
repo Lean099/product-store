@@ -1,8 +1,11 @@
 const { Schema, model, Types } = require('mongoose');
+const bcrypt = require('bcrypt');
 
-const UpdateSchema = new Schema({
+const UserSchema = new Schema({
     name: String,
     lastname: String,
+    password: String,
+    email: String,
     avatar: String,
     phone: String,
     dni: String,
@@ -22,4 +25,40 @@ const UpdateSchema = new Schema({
     ]
 })
 
-module.exports = model("User", UpdateSchema);
+UserSchema.statics.hashPassword = async function(password) {
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+}
+
+UserSchema.pre('save', async function(next){
+    const usuario = this;
+    /*await bcrypt.genSalt(10, (err, salt)=>{
+        bcrypt.hash(usuario.password, salt, (err, hash)=>{
+            usuario.password=hash;
+            next();
+        })
+    })*/
+    usuario.password = await this.constructor.hashPassword(usuario.password);
+    next();
+})
+
+UserSchema.pre('findOneAndUpdate', async function(next){
+    // Obtener el objeto `_update` que contiene los cambios
+    const update = this.getUpdate(); // Obtener el objeto de actualización
+
+    if (update.password) {
+        update.password = await this.model.hashPassword(update.password);
+    }
+
+    // Continuar con la operación de actualización
+    next();
+})
+
+UserSchema.methods.validatePassword = async function(password){
+    const usuario = this;
+    const compare = await bcrypt.compare(password, usuario.password);
+    return compare;
+}
+
+module.exports = model("User", UserSchema);

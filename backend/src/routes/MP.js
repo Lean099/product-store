@@ -2,11 +2,17 @@ const { Router } = require('express')
 const router = Router()
 const User = require('../models/User')
 let axios = require('axios')
-const mercadopago = require('mercadopago');
+const {MercadoPagoConfig, Payment, Preference} = require('mercadopago')
 
-mercadopago.configure({
+const client = new MercadoPagoConfig({
+  access_token: process.env.MERCADO_PAGO_ACCESS_KEY
+})
+
+const payment = new Payment(client);
+
+/*mercadopago.configure({
     access_token: process.env.MERCADO_PAGO_ACCESS_KEY
-});
+});*/
 
 router.post('/preferenceId', async (req, res)=>{
 

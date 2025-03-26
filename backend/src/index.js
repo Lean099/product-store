@@ -4,6 +4,7 @@ const cors = require('cors')
 const multer = require('multer')
 const { v4: uuidv4 } = require('uuid');
 const path = require('path')
+
 const app = express()
 require('./database')
 
@@ -12,8 +13,8 @@ app.set('port', process.env.PORT || 80)
 app.use(cors())
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
-app.use(express.static(path.join(__dirname, 'public')))
 
+app.use(express.static(path.join(__dirname, 'public')))
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/uploads'),
     filename: (req, file, cb)=>{
