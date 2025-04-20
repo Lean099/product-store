@@ -3,7 +3,7 @@ const User = require('../models/User')
 const Photo = require('../models/Photo')
 
 const deleteTempFiles = require('../config/deleteFiles')
-const {validatePassword, hashUpdatedPassword} = require('../config/hashPassword')
+//const {validatePassword, hashUpdatedPassword} = require('../config/hashPassword')
 
 const cloudinary = require('cloudinary').v2
 cloudinary.config({

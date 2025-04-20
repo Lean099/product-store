@@ -2,9 +2,10 @@ const Product = require('../models/Product')
 const User = require('../models/User')
 const Photo = require('../models/Photo')
 const fs_extra = require('fs-extra')
-const axios = require('axios')
 
-const cloudinary = require('cloudinary')
+const deleteTempFiles = require('../config/deleteFiles')
+
+const cloudinary = require('cloudinary').v2
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -14,31 +15,48 @@ cloudinary.config({
 const productController = {}
 
 productController.newProduct = async (req, res)=>{
-    const user = await User.findOne({_id: req.params.id})
-    const {title, description, image, price, quantity} = req.body
-    
-    const result = await cloudinary.v2.uploader.upload(req.file.path)
-    
-    const product = await Product.create({
-        title: title,
-        description: description,
-        image: result.url,
-        price: price,
-        quantity: quantity,
-        idCostumer: user._id
-    })
-    const productSaved = await product.save()
-    await User.findOneAndUpdate({_id: req.params.id}, {$push: {idProducts: product._id}})
+    const {title, description, price, quantity} = req.body
+    try {
+        const user = await User.findOne({_id: req.params.id})
+        let imageUrl = null;
+        let publicId = null;
+        if(req.file){
+            const result = await cloudinary.uploader.upload(req.file.path, { folder: 'product-store' });
+            imageUrl = result.secure_url;
+            publicId = result.public_id;
+        }
+        
+        const product = new Product({
+            title: title,
+            description: description,
+            image: imageUrl,
+            price: price,
+            quantity: quantity,
+            idCostumer: user._id
+        })
 
-    const newPhoto = new Photo({
-        idCostumer: user._id,
-        idProduct: productSaved._id,
-        imageURL: result.url,
-        public_id: result.public_id
-    })
-    await newPhoto.save()
-    await fs_extra.unlink(req.file.path)
-    res.json({message: 'Product created'})
+        if(imageUrl){
+            const imageProduct = new Photo({
+                idCostumer: user._id,
+                idProduct: product._id,
+                imageURL: imageUrl,
+                public_id: publicId
+            })
+            await imageProduct.save();
+        }
+
+        await product.save()
+        await User.findOneAndUpdate({_id: req.params.id}, {$push: {idProducts: product._id}})
+
+        if (req.file) deleteTempFiles();
+
+        res.json('Product created');
+
+        
+    } catch (error) {
+        console.error('Error creating product:', error);
+        res.status(500).send('Error creating product');
+    }
 }
 
 productController.getAllProducts = async (req, res)=>{
@@ -62,48 +80,50 @@ productController.getAllProductsCostumer = async (req, res)=>{
 }
 
 productController.updateProduct = async (req, res)=>{
-    const {title, description, image, price, quantity} = req.body
-    
-    const checkFile = async ()=>{
+    const {title, description, price, quantity} = req.body
+    try {
+        let imageUrl = null;
+        let publicId = null;
         if(req.file){
-            const result = await cloudinary.v2.uploader.upload(req.file.path)
-            return result
-        }else{
-            return
+            const result = await cloudinary.uploader.upload(req.file.path, { folder: 'product-store' });
+            imageUrl = result.secure_url;
+            publicId = result.public_id;
+            const photoBeforeDeleted =  await Photo.findOneAndDelete({idProduct: req.params.id})
+            await cloudinary.uploader.destroy(photoBeforeDeleted.public_id)
+            deleteTempFiles();
         }
-    }
-
-    const resultImgUploaded = await checkFile()
-
-    if(req.file){   
-        const productBeforeUpdated = await Product.findOneAndUpdate({_id: req.params.id}, {title: title, description: description, image: resultImgUploaded.url, price: price, quantity: quantity})   
-        const newPhoto = new Photo({
-            idCostumer: productBeforeUpdated.idCostumer,
-            idProduct: req.params.id,
-            imageURL: resultImgUploaded.url,
-            public_id: resultImgUploaded.public_id
+            
+        const updatedProduct = await Product.findOneAndUpdate({_id: req.params.id}, {title, description, image: req.file ? imageUrl : undefined, price, quantity}, {new: true})
+        await Photo.create({
+            idCostumer: updatedProduct.idCostumer,
+            idProduct: updatedProduct._id,
+            imageURL: imageUrl ? imageUrl : undefined,
+            public_id: publicId ? publicId : undefined
         })
-        await newPhoto.save()
-        const photoBeforeDeleted = await Photo.findOneAndDelete({imageURL: productBeforeUpdated.image})
-        await cloudinary.v2.uploader.destroy(photoBeforeDeleted.public_id)
-    }else{
-        await Product.findOneAndUpdate({_id: req.params.id}, {title: title, description: description, price: price, quantity: quantity})
-    }
     
-    res.json({message: 'Product Updated'})
+        res.json({
+            message: 'Updated product',
+            product: updatedProduct
+        })
+    } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).send('Error updating product');
+    }
 }
 
 productController.deleteProduct = async (req, res)=>{
-    const productAndUser = await Product.findOne({_id: req.params.id}).populate('idCostumer', {
-        _id: 1,
-        idProducts: 1
-    })
-
-    await Product.findOneAndDelete({_id: req.params.id})
-    await User.findOneAndUpdate({_id: productAndUser.idCostumer}, {$pull: {idProducts: req.params.id}})
-    const photoBeforeDelete = await Photo.findOneAndDelete({idProduct: req.params.id})
-    await cloudinary.v2.uploader.destroy(photoBeforeDelete.public_id)
-    res.json({message: 'Product Deleted'})
+    try {
+        const deletedProduct = await Product.findOneAndDelete({_id: req.params.id})
+        await User.findOneAndDelete({_id: req.params.id}, {$pull: {idProducts: req.params.id}})
+        if(deletedProduct.image){
+            const photoBeforeDeleted = await Photo.findOneAndDelete({idProduct: req.params.id})
+            await cloudinary.uploader.destroy(photoBeforeDeleted.public_id)
+        }
+        res.json({message: 'Product Deleted'})
+    } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).send('Error deleting product');
+    }
 }
 
 module.exports = productController

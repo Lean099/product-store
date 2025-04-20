@@ -33,12 +33,6 @@ UserSchema.statics.hashPassword = async function(password) {
 
 UserSchema.pre('save', async function(next){
     const usuario = this;
-    /*await bcrypt.genSalt(10, (err, salt)=>{
-        bcrypt.hash(usuario.password, salt, (err, hash)=>{
-            usuario.password=hash;
-            next();
-        })
-    })*/
     usuario.password = await this.constructor.hashPassword(usuario.password);
     next();
 })
